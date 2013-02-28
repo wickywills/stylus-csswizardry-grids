@@ -1,6 +1,8 @@
-# csswizardry-grids
+# stylus-csswizardry-grids
 
-**Simple, fluid, nestable, flexible, Sass-based, responsive grid system.**
+This is a port from Sass to **Stylus**. The only difference from the original is that you don't have an option to set Stylus to use silent classes, because Stylus does that automatically when you @extend the class - you can read more about it [here](http://learnboost.github.com/stylus/docs/extend.html).
+
+**Simple, fluid, nestable, flexible, Stylus-based, responsive grid system.**
 
 * Fully responsive
 * Infinitely nestable
@@ -20,9 +22,6 @@ for a comprehensive overview of the principles of the grid system.
 Simply fill in/adjust the relevant variables.
 
 * `$gutter` controls how much space there is between columns.
-* `$use-silent-classes` tells csswizardry-grids whether to go ahead and compile
-  solid, traditional classes (e.g. `.one-whole`) or to create Sass ‘silent’
-  classes which only compile to CSS once explictly called.
 * `$lap-start` and `$desk-start` tell csswizardry-grids when to fire particular
   media queries to service those particular sizes. Note that csswizardry-grids
   works out the ends of any other breakpoints by using these numbers.
@@ -43,49 +42,6 @@ like this:
         </div>
     
     </div>
-
-If you are using silent classes then your HTML might look like this:
-
-    <div class="page">
-    
-        <div class="content">
-            ...
-        </div><!--
-    
-     --><div class="sub-content">
-            ...
-        </div>
-    
-    </div>
-
-…and your Sass, something like this:
-
-    .page{
-        @extend %grid;
-    }
-    
-        .content,
-        .sub-content{
-            @extend %grid__item;
-            @extend %one-whole;
-            @extend %lap-one-half;
-        }
-    
-        .content{
-            @extend %desk-two-thirds;
-        }
-    
-        .sub-content{
-            @extend %desk-one-third;
-        }
-
-The empty HTML comments are to remove whitespace caused by using `inline-block`.
-Prior to v1.1 this was tackled by using some
-[`[letter|word]-spacing` trickery](https://github.com/csswizardry/csswizardry-grids/blob/60a5075ac65282bb24fa5a5d5ed32a060ce2975f/csswizardry-grids.scss#L64-L65),
-however Chrome 25 introduced a change which meant this method now broke
-csswizardry-grids.
-
-## Demo
 
 There is a very simple demo which can be found at
 [csswizardry.github.com/csswizardry-grids](http://csswizardry.github.com/csswizardry-grids).
