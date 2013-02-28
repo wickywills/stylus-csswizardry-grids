@@ -28,7 +28,7 @@
 /* [2] */
   padding: 0;
 /* [2] */
-  margin-left: -gutter;
+  margin-left: -1em;
 /* [3] */
 }
 /**
@@ -39,9 +39,8 @@
  * 5. Required to combine fluid widths and fixed gutters.
  */
 .grid__item {
-  display: inline-block;
-/* [1] */
-  padding-left: 24px;
+  float: left;
+  padding-left: 1em;
 /* [2] */
   vertical-align: top;
 /* [3] */
@@ -49,8 +48,8 @@
 /* [4] */
   -webkit-box-sizing: border-box;
 /* [5] */
-}
-.grid__item -moz-box-sizing: border-box /* [5] */ {
+  -moz-box-sizing: border-box;
+/* [5] */
   box-sizing: border-box;
 /* [5] */
 }
@@ -62,7 +61,163 @@
 /**
  * Our breakpoint specific widths classes.
  */
-@media only screen and (max-width:palm-end) {
+/**
+	 * Whole
+	 */
+.one-whole {
+  width: 100%;
+}
+/**
+	 * Halves
+	 */
+.one-half {
+  width: 50%;
+}
+/**
+	 * Thirds
+	 */
+.one-third {
+  width: 33.33333333333333%;
+}
+.two-thirds {
+  width: 66.66666666666666%;
+}
+/**
+	 * Quarters
+	 */
+.one-quarter {
+  width: 25%;
+}
+.two-quarters {
+  width: 50%;
+}
+.three-quarters {
+  width: 75%;
+}
+/**
+	 * Fifths
+	 */
+.one-fifth {
+  width: 20%;
+}
+.two-fifths {
+  width: 40%;
+}
+.three-fifths {
+  width: 60%;
+}
+.four-fifths {
+  width: 80%;
+}
+/**
+	 * Sixths
+	 */
+.one-sixth {
+  width: 16.666666666666664%;
+}
+.two-sixths {
+  width: 33.33333333333333%;
+}
+.three-sixths {
+  width: 50%;
+}
+.four-sixths {
+  width: 66.66666666666666%;
+}
+.five-sixths {
+  width: 83.33333333333334%;
+}
+/**
+	 * Eighths
+	 */
+.one-eighth {
+  width: 12.5%;
+}
+.two-eighths {
+  width: 25%;
+}
+.three-eighths {
+  width: 37.5%;
+}
+.four-eighths {
+  width: 50%;
+}
+.five-eighths {
+  width: 62.5%;
+}
+.six-eighths {
+  width: 75%;
+}
+.seven-eighths {
+  width: 87.5%;
+}
+/**
+	 * Tenths
+	 */
+.one-tenth {
+  width: 10%;
+}
+.two-tenths {
+  width: 20%;
+}
+.three-tenths {
+  width: 30%;
+}
+.four-tenths {
+  width: 40%;
+}
+.five-tenths {
+  width: 50%;
+}
+.six-tenths {
+  width: 60%;
+}
+.seven-tenths {
+  width: 70%;
+}
+.eight-tenths {
+  width: 80%;
+}
+.nine-tenths {
+  width: 90%;
+}
+/**
+	 * Twelfths
+	 */
+.one-twelfth {
+  width: 8.333333333333332%;
+}
+.two-twelfths {
+  width: 16.666666666666664%;
+}
+.three-twelfths {
+  width: 25%;
+}
+.four-twelfths {
+  width: 33.33333333333333%;
+}
+.five-twelfths {
+  width: 41.66666666666667%;
+}
+.six-twelfths {
+  width: 50%;
+}
+.seven-twelfths {
+  width: 58.333333333333336%;
+}
+.eight-twelfths {
+  width: 66.66666666666666%;
+}
+.nine-twelfths {
+  width: 75%;
+}
+.ten-twelfths {
+  width: 83.33333333333334%;
+}
+.eleven-twelfths {
+  width: 91.66666666666666%;
+}
+@media only screen and (max-width: 480px) {
   .palm-one-whole {
     width: 100%;
   }
@@ -193,7 +348,7 @@
     width: 91.66666666666666%;
   }
 }
-@media only screen and (min-width:lap-start) and (max-width:lap-end) {
+@media only screen and (min-width: 481px) and (max-width: 1023px) {
   .lap-one-whole {
     width: 100%;
   }
@@ -324,7 +479,7 @@
     width: 91.66666666666666%;
   }
 }
-@media only screen and (max-width:lap-end) {
+@media only screen and (max-width: 1023px) {
   .portable-one-whole {
     width: 100%;
   }
@@ -455,7 +610,7 @@
     width: 91.66666666666666%;
   }
 }
-@media only screen and (min-width:desk-start) {
+@media only screen and (min-width: 1024px) {
   .desk-one-whole {
     width: 100%;
   }

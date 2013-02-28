@@ -4,7 +4,7 @@
 /**
  * Set the spacing between your grid items.
  */
-gutter =				24px
+gutter =				1em
 
 /**
  * At which point should lap and desk breakpoints kick in?
@@ -30,10 +30,10 @@ create-size(namespace, width, sizes = null)
 	if sizes
 		for size, i in sizes
 			plural = i is 0 ? "" : "s"
-			{class-type}{namespace}-{size}-{width}{(plural)}
+			{class-type}{namespace}{size}-{width}{(plural)}
 				width: ((i + 1) / (length(sizes) + 1)) * 100%
 	else
-		{class-type}{namespace}-one-whole
+		{class-type}{namespace}one-whole
 			width: 100%
 	
 
@@ -50,7 +50,7 @@ create-size(namespace, width, sizes = null)
 	list-style: none 				/* [1] */
 	margin: 0 						/* [2] */
 	padding: 0 						/* [2] */
-	margin-left: -gutter 			/* [3] */
+	margin-left: -(gutter) 			/* [3] */
 
 /**
  * 1. Cause columns to stack side-by-side.
@@ -60,13 +60,13 @@ create-size(namespace, width, sizes = null)
  * 5. Required to combine fluid widths and fixed gutters.
  */
 {class-type}grid__item
-	display: inline-block			/* [1] */
+	float: left
 	padding-left: gutter 			/* [2] */
 	vertical-align: top 			/* [3] */
 	width: 100% 					/* [4] */
 	-webkit-box-sizing: border-box 	/* [5] */
-	   -moz-box-sizing: border-box 	/* [5] */
-			box-sizing: border-box 	/* [5] */
+	-moz-box-sizing: border-box 	/* [5] */
+	box-sizing: border-box 			/* [5] */
 
 
 
@@ -78,6 +78,11 @@ create-size(namespace, width, sizes = null)
  */
 palm-end =				lap-start - 1px
 lap-end =				desk-start - 1px
+
+palm-media = "only screen and (max-width: " + palm-end + ")"
+lap-media = "only screen and (min-width: " + lap-start + ") and (max-width: " + lap-end + ")"
+portable-media = "only screen and (max-width: " + lap-end + ")"
+desk-media = "only screen and (min-width: " + desk-start + ")"
 
 device-type(namespace = "")
 	/**
@@ -129,14 +134,17 @@ device-type(namespace = "")
 /**
  * Our breakpoint specific widths classes.
  */
-@media only screen and (max-width:palm-end)
-	device-type palm
 
-@media only screen and (min-width:lap-start) and (max-width:lap-end)
-	device-type lap
+device-type()
 
-@media only screen and (max-width:lap-end)
-	device-type portable
+@media palm-media
+	device-type palm-
 
-@media only screen and (min-width:desk-start)
-	device-type desk
+@media lap-media
+	device-type lap-
+
+@media portable-media
+	device-type portable-
+
+@media desk-media
+	device-type desk-
