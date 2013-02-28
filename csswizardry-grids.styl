@@ -2,9 +2,24 @@
 	$VARIABLES
 \*------------------------------------*/
 /**
+ * If you are building a non-responsive site but would still like to use
+ * csswizardry-grids, set this to false:
+ */
+responsive =			true;
+
+
+/**
+ * Is this build mobile first? Setting to true means that all grids will be 100%
+ * width if you do not apply a more specific class to them.
+ */
+mobile-first =			true;
+
+
+/**
  * Set the spacing between your grid items.
  */
 gutter =				1em
+
 
 /**
  * At which point should lap and desk breakpoints kick in?
@@ -60,10 +75,10 @@ create-size(namespace, width, sizes = null)
  * 5. Required to combine fluid widths and fixed gutters.
  */
 {class-type}grid__item
-	float: left
+	float: left 					/* [1] */
 	padding-left: gutter 			/* [2] */
 	vertical-align: top 			/* [3] */
-	width: 100% 					/* [4] */
+	width: 100% if mobile-first		/* [4] */
 	-webkit-box-sizing: border-box 	/* [5] */
 	-moz-box-sizing: border-box 	/* [5] */
 	box-sizing: border-box 			/* [5] */
@@ -137,14 +152,15 @@ device-type(namespace = "")
 
 device-type()
 
-@media palm-media
-	device-type palm-
+if responsive
+	@media palm-media
+		device-type palm-
 
-@media lap-media
-	device-type lap-
+	@media lap-media
+		device-type lap-
 
-@media portable-media
-	device-type portable-
+	@media portable-media
+		device-type portable-
 
-@media desk-media
-	device-type desk-
+	@media desk-media
+		device-type desk-
