@@ -12,15 +12,20 @@
  * Set the spacing between your grid items.
  */
 /**
- * At which point should lap and desk breakpoints kick in?
- */
-/**
- * Do not edit the following variables.
+ * Define your breakpoints. The first value is the prefix that shall be used for
+ * your classes (e.g. `.palm--one-half`), the second value is the media query
+ * that the breakpoint fires at.
  */
 /*------------------------------------* 	$MIXINS
 \*------------------------------------*/
 /**
  * Mixin to create the different sizes dynamically
+ */
+/**
+ * These mixins are for the library to use only, you should not need to modify
+ * them at all.
+ *
+ * Enclose a block of code with a media query as named in `$breakpoints`.
  */
 /*------------------------------------* 	$GRID SETUP
 \*------------------------------------*/
@@ -36,7 +41,7 @@
 /* [2] */
   padding: 0;
 /* [2] */
-  margin-left: -1em;
+  margin-left: -24px;
 /* [3] */
 }
 /**
@@ -49,7 +54,7 @@
 .grid__item {
   float: left;
 /* [1] */
-  padding-left: 1em;
+  padding-left: 24px;
 /* [2] */
   vertical-align: top;
 /* [3] */
@@ -61,6 +66,75 @@
 /* [5] */
   box-sizing: border-box;
 /* [5] */
+}
+/**
+ * Reversed grids allow you to structure your source in the opposite order to
+ * how your rendered layout will appear. Extends `.grid`.
+ */
+.grid--rev {
+  direction: rtl;
+  text-align: left;
+}
+.grid--rev > .grid__item {
+  direction: ltr;
+  text-align: left;
+}
+/**
+ * Gutterless grids have all the properties of regular grids, minus any spacing.
+ * Extends `.grid`.
+ */
+.grid--full {
+  margin-left: 0;
+}
+.grid--full > .grid__item {
+  padding-left: 0;
+}
+/**
+ * Align the entire grid to the right. Extends `.grid`.
+ */
+.grid--right {
+  text-align: right;
+}
+.grid--right > .grid__item {
+  text-align: left;
+}
+/**
+ * Centered grids align grid items centrally without needing to use push or pull
+ * classes. Extends `.grid`.
+ */
+.grid--center {
+  text-align: center;
+}
+.grid--center > .grid__item {
+  text-align: left;
+}
+/**
+ * Align grid cells vertically (`.grid--middle` or `.grid--bottom`). Extends
+ * `.grid`.
+ */
+.grid--middle > .grid__item {
+  vertical-align: middle;
+}
+.grid--bottom > .grid__item {
+  vertical-align: bottom;
+}
+/**
+ * Create grids with narrower gutters. Extends `.grid`.
+ */
+.grid--narrow {
+  margin-left: -12px;
+}
+.grid--narrow > .grid__item {
+  padding-left: 24px/2;
+}
+/**
+ * Create grids with wider gutters. Extends `.grid`.
+ */
+.grid--wide {
+  margin-left: -48px;
+}
+.grid--wide > .grid__item {
+  padding-left: 48px;
 }
 /*------------------------------------* 	$WIDTHS
 \*------------------------------------*/
@@ -226,7 +300,7 @@
 .eleven-twelfths {
   width: 91.66666666666666%;
 }
-@media only screen and (max-width: 480px) {
+@media (max-width: 480px) {
   .palm-one-whole {
     width: 100%;
   }
@@ -357,7 +431,7 @@
     width: 91.66666666666666%;
   }
 }
-@media only screen and (min-width: 481px) and (max-width: 1023px) {
+@media (min-width: 481px) and (max-width: 1023px) {
   .lap-one-whole {
     width: 100%;
   }
@@ -488,7 +562,7 @@
     width: 91.66666666666666%;
   }
 }
-@media only screen and (max-width: 1023px) {
+@media (max-width: 1023px) {
   .portable-one-whole {
     width: 100%;
   }
@@ -619,7 +693,7 @@
     width: 91.66666666666666%;
   }
 }
-@media only screen and (min-width: 1024px) {
+@media (min-width: 1024px) {
   .desk-one-whole {
     width: 100%;
   }
