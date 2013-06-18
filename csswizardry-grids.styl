@@ -5,20 +5,20 @@
  * If you are building a non-responsive site but would still like to use
  * csswizardry-grids, set this to false:
  */
-responsive =			true
+responsive := true
 
 
 /**
  * Is this build mobile first? Setting to true means that all grids will be 100%
  * width if you do not apply a more specific class to them.
  */
-mobile-first =			true
+mobile-first :=	true
 
 
 /**
  * Set the spacing between your grid items.
  */
-gutter =				24px
+gutter := 24px
 
 /**
  * Would you like push and pull classes enabled?
@@ -31,7 +31,7 @@ pull := true
  * your classes (e.g. `.palm--one-half`), the second value is the media query
  * that the breakpoint fires at.
  */
-breakpoints =  			"palm" "(max-width: 480px)",
+breakpoints := 			"palm" "(max-width: 480px)",
 						"lap" "(min-width: 481px) and (max-width: 1023px)",
 						"portable" "(max-width: 1023px)",
 						"desk" "(min-width: 1024px)"
@@ -45,19 +45,17 @@ breakpoints =  			"palm" "(max-width: 480px)",
  * Mixin to create the different sizes dynamically
  */
 create-size(namespace, width, sizes = null)
-  if sizes
-    for size, i in sizes
-      plural = i is 0 ? "" : "s"
-        .{namespace}{size}-{width}{(plural)}
-        width: ((i + 1) / (length(sizes) + 1)) * 100%
-      if push
-        .push-{namespace}{size}-{width}{(plural)}
-          left: ((i + 1) / (length(sizes) + 1)) * 100%
-          position: relative
-      if pull
-        .pull-{namespace}{size}-{width}{(plural)}
-          right: ((i + 1) / (length(sizes) + 1)) * 100%
-          position: relative
+	if sizes
+		for size, i in sizes
+			plural = i is 0 ? "" : "s"
+			.{namespace}{size}-{width}{(plural)}
+				width: ((i + 1) / (length(sizes) + 1)) * 100%
+			if push
+				.push-{namespace}{size}-{width}{(plural)}
+					left: ((i + 1) / (length(sizes) + 1)) * 100%
+			if pull
+				.pull-{namespace}{size}-{width}{(plural)}
+					right: ((i + 1) / (length(sizes) + 1)) * 100%
 	else
 		.{namespace}one-whole
 			width: 100%
@@ -115,6 +113,7 @@ grid-media-query(media-query)
 	-webkit-box-sizing: border-box 	/* [5] */
 	-moz-box-sizing: border-box 	/* [5] */
 	box-sizing: border-box 			/* [5] */
+	position: relative if pull or push
 
 /**
  * Reversed grids allow you to structure your source in the opposite order to
