@@ -20,6 +20,11 @@ mobile-first =			true
  */
 gutter =				24px
 
+/**
+ * Would you like push and pull classes enabled?
+ */
+push := true
+pull := true
 
 /**
  * Define your breakpoints. The first value is the prefix that shall be used for
@@ -40,11 +45,19 @@ breakpoints =  			"palm" "(max-width: 480px)",
  * Mixin to create the different sizes dynamically
  */
 create-size(namespace, width, sizes = null)
-	if sizes
-		for size, i in sizes
-			plural = i is 0 ? "" : "s"
-			.{namespace}{size}-{width}{(plural)}
-				width: ((i + 1) / (length(sizes) + 1)) * 100%
+  if sizes
+    for size, i in sizes
+      plural = i is 0 ? "" : "s"
+        .{namespace}{size}-{width}{(plural)}
+        width: ((i + 1) / (length(sizes) + 1)) * 100%
+      if push
+        .push-{namespace}{size}-{width}{(plural)}
+          left: ((i + 1) / (length(sizes) + 1)) * 100%
+          position: relative
+      if pull
+        .pull-{namespace}{size}-{width}{(plural)}
+          right: ((i + 1) / (length(sizes) + 1)) * 100%
+          position: relative
 	else
 		.{namespace}one-whole
 			width: 100%
