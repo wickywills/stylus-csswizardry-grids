@@ -93,8 +93,8 @@ use_silent_classes = false
 /**
  * Would you like push and pull classes enabled?
  */
-push = false
-pull = false
+use_push = false
+use_pull = false
 
 
 /**
@@ -221,11 +221,11 @@ create_size(namespace, width, sizes = null)
             {class_type}{namespace}{size}-{width}{plural}
                 width: ((i + 1) / (length(sizes) + 1)) * 100%
 
-            if push
+            if use_push
                 {class_type}{push}{namespace}{size}-{width}{plural}
                     left: ((i + 1) / (length(sizes) + 1)) * 100%
 
-            if pull
+            if use_pull
                 {class_type}{pull}{namespace}{size}-{width}{plural}
                     right: ((i + 1) / (length(sizes) + 1)) * 100%
     else
