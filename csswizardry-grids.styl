@@ -68,40 +68,40 @@
  * If you are building a non-responsive site but would still like to use
  * csswizardry-grids, set this to false:
  */
-responsive = true
+responsive := true
 
 
 /**
  * Is this build mobile first? Setting to true means that all grids will be 100%
  * width if you do not apply a more specific class to them.
  */
-mobile_first =  true
+mobile_first := true
 
 
 /**
  * Set the spacing between your grid items.
  */
-gutter = 24px
+gutter := 24px
 
 
 /**
  * Would you like Sass’ silent classes, or regular CSS classes?
  */
-use_silent_classes = false
+use_silent_classes := false
 
 
 /**
  * Would you like push and pull classes enabled?
  */
-use_push = false
-use_pull = false
+use_push := false
+use_pull := false
 
 
 /**
  * Use floats instead of display: inline-block?
  */
 
-use_floats = false
+use_floats := false
 
 
 /**
@@ -116,7 +116,7 @@ use_floats = false
  * github.com/csswizardry/csswizardry-grids/commit/744d4b23c9d2b77d605b5991e54a397df72e0688
  * github.com/csswizardry/inuit.css/issues/170#issuecomment-14859371
  */
-use_markup_fix = true and (not use_floats)
+use_markup_fix := true and (not use_floats)
 
 
 /**
@@ -124,7 +124,7 @@ use_markup_fix = true and (not use_floats)
  * your classes (e.g. `.palm--one-half`), the second value is the media query
  * that the breakpoint fires at.
  */
-breakpoints = "palm" "(max-width: 480px)", "lap" "(min-width: 481px) and (max-width: 1023px)", "portable" "(max-width: 1023px)", "desk" "(min-width: 1024px)"
+breakpoints := "palm" "(max-width: 480px)", "lap" "(min-width: 481px) and (max-width: 1023px)", "portable" "(max-width: 1023px)", "desk" "(min-width: 1024px)"
 
 
 /**
@@ -137,27 +137,27 @@ breakpoints = "palm" "(max-width: 480px)", "lap" "(min-width: 481px) and (max-wi
  * Push and pull shall only be used if `$push` and/or `$pull` and `$responsive`
  * have been set to ‘true’.
  */
-breakpoint_has_widths = 'palm', 'lap', 'portable', 'desk'
-breakpoint_has_push = 'palm', 'lap', 'portable', 'desk'
-breakpoint_has_pull = 'palm', 'lap', 'portable', 'desk'
+breakpoint_has_widths := 'palm', 'lap', 'portable', 'desk'
+breakpoint_has_push := 'palm', 'lap', 'portable', 'desk'
+breakpoint_has_pull := 'palm', 'lap', 'portable', 'desk'
 
 
 /**
  * If you don't like the default class names, you can customize them here.
  */
 
-grid = 'grid'
-grid__item = grid + '__item'
-grid--rev = grid + '--rev'
-grid--full = grid + '--full'
-grid--right = grid + '--right'
-grid--center = grid + '--center'
-grid--middle = grid + '--middle'
-grid--bottom = grid + '--bottom'
-grid--narrow = grid + '--narrow'
+grid := 'grid'
+grid__item := grid + '__item'
+grid--rev := grid + '--rev'
+grid--full := grid + '--full'
+grid--right := grid + '--right'
+grid--center := grid + '--center'
+grid--middle := grid + '--middle'
+grid--bottom := grid + '--bottom'
+grid--narrow := grid + '--narrow'
 grid--wide = grid + '--wide'
-push = 'push--'
-pull = 'pull--'
+push := 'push--'
+pull := 'pull--'
 
 
 /**
@@ -266,7 +266,7 @@ if not use_markup_fix
 {class_type}{grid__item}
     if use_floats
         float left                  /* [1] */
-    if not use_floats
+    else
         display inline-block        /* [1] */
     padding-left gutter             /* [2] */
     vertical-align top              /* [3] */
