@@ -81,7 +81,7 @@ mobile_first := true
 /**
  * Set the spacing between your grid items.
  */
-gutter := 24px
+gutter := 60px
 
 
 /**
@@ -116,7 +116,7 @@ use_floats := false
  * github.com/csswizardry/csswizardry-grids/commit/744d4b23c9d2b77d605b5991e54a397df72e0688
  * github.com/csswizardry/inuit.css/issues/170#issuecomment-14859371
  */
-use_markup_fix := true and (not use_floats)
+use_markup_fix := false and (not use_floats)
 
 
 /**
@@ -124,7 +124,7 @@ use_markup_fix := true and (not use_floats)
  * your classes (e.g. `.palm--one-half`), the second value is the media query
  * that the breakpoint fires at.
  */
-breakpoints := "palm" "(max-width: 480px)", "lap" "(min-width: 481px) and (max-width: 1023px)", "portable" "(max-width: 1023px)", "desk" "(min-width: 1024px)"
+breakpoints := "palm" "(min-width: 480px)", "lap" "(min-width: 768px)", "portable" "(min-width: 1024px)", "desk" "(min-width: 1280px)"
 
 
 /**
@@ -146,10 +146,11 @@ breakpoint_has_pull := 'palm', 'lap', 'portable', 'desk'
  * If you don't like the default class names, you can customize them here.
  */
 
-grid := 'grid'
+grid := 'lm-grid'
 grid__item := grid + '__item'
 grid--rev := grid + '--rev'
 grid--full := grid + '--full'
+grid--multirow := grid + '--multirow'
 grid--right := grid + '--right'
 grid--center := grid + '--center'
 grid--middle := grid + '--middle'
@@ -167,9 +168,9 @@ pull := 'pull--'
 
 
 if use_silent_classes
-    class_type = "$"
+	class_type = "$"
 else
-    class_type = "."
+	class_type = "."
 
 
 /*------------------------------------*\
@@ -183,22 +184,22 @@ else
  */
 
 grid_media_query(media_query)
-    breakpoint_found = false
+	breakpoint_found = false
 
-    for breakpoint in breakpoints
-        name = unquote(breakpoint)
-        declaration = last(breakpoint)
+	for breakpoint in breakpoints
+		name = unquote(breakpoint)
+		declaration = last(breakpoint)
 
-        if media_query == name
-            breakpoint_found = true
+		if media_query == name
+			breakpoint_found = true
 
-            // Interpolation doesn't work in @media blocks, so we do it this way
-            media = unquote("@media " + declaration)
-            {media}
-                device_type(name + "-")
+			// Interpolation doesn't work in @media blocks, so we do it this way
+			media = unquote("@media " + declaration)
+			{media}
+				device_type(name + "-")
 
-    if not breakpoint_found
-        warn("Breakpoint '" + media_query + "' does not exist")
+	if not breakpoint_found
+		warn("Breakpoint '" + media_query + "' does not exist")
 
 
 /**
@@ -206,31 +207,31 @@ grid_media_query(media_query)
  * the `[class*="push--"]` and `[class*="pull--"]` selectors.
  */
 silent_relative()
-    if use_silent_classes
-        position relative
+	if use_silent_classes
+		position relative
 
 
 /**
  * Mixin to create the different sizes dynamically
  */
 create_size(namespace, width, sizes = null)
-    if sizes
-        for size, i in sizes
-            plural = i is 0 ? "" : "s"
+	if sizes
+		for size, i in sizes
+			plural = i is 0 ? "" : "s"
 
-            {class_type}{namespace}{size}-{width}{plural}
-                width: ((i + 1) / (length(sizes) + 1)) * 100%
+			{class_type}{namespace}{size}-{width}{plural}
+				width: ((i + 1) / (length(sizes) + 1)) * 100%
 
-            if use_push
-                {class_type}{push}{namespace}{size}-{width}{plural}
-                    left: ((i + 1) / (length(sizes) + 1)) * 100%
+			if use_push
+				{class_type}{push}{namespace}{size}-{width}{plural}
+					left: ((i + 1) / (length(sizes) + 1)) * 100%
 
-            if use_pull
-                {class_type}{pull}{namespace}{size}-{width}{plural}
-                    right: ((i + 1) / (length(sizes) + 1)) * 100%
-    else
-        {class_type}{namespace}one-whole
-            width: 100%
+			if use_pull
+				{class_type}{pull}{namespace}{size}-{width}{plural}
+					right: ((i + 1) / (length(sizes) + 1)) * 100%
+			else
+				{class_type}{namespace}one-whole
+					width: 100%
 
 
 
@@ -243,18 +244,18 @@ create_size(namespace, width, sizes = null)
  * 3. Apply a negative `margin-left` to negate the columns’ gutters.
  */
 {class_type}{grid}
-    list-style none                 /* [1] */
-    margin 0                        /* [2] */
-    padding 0                       /* [2] */
-    margin-left -(gutter)           /* [3] */
-    if not use_markup_fix
-        letter-spacing -0.31em
+	list-style none                 /* [1] */
+	margin 0                        /* [2] */
+	padding 0                       /* [2] */
+	margin-left -(gutter)           /* [3] */
+	if not use_markup_fix
+			   font-size: 0;
 
 if not use_markup_fix
-    /* Opera hack */
-    .opera:-o-prefocus,
-    {class_type}{grid}
-        word-spacing -0.43em
+		   /* Opera hack */
+		   .opera:-o-prefocus,
+		   {class_type}{grid}
+			   word-spacing -0.43em
 
 /**
  * 1. Cause columns to stack side-by-side.
@@ -264,77 +265,81 @@ if not use_markup_fix
  * 5. Required to combine fluid widths and fixed gutters.
  */
 {class_type}{grid__item}
-    if use_floats
-        float left                  /* [1] */
-    else
-        display inline-block        /* [1] */
-    padding-left gutter             /* [2] */
-    vertical-align top              /* [3] */
-    if mobile_first
-        width 100%                  /* [4] */
-    -webkit-box-sizing border-box   /* [5] */
-    -moz-box-sizing border-box      /* [5] */
-    box-sizing border-box           /* [5] */
-    if pull or push
-        position relative
+	if use_floats
+		float left                  /* [1] */
+	else
+		display inline-block        /* [1] */
+	padding-left gutter             /* [2] */
+	vertical-align top              /* [3] */
+	if mobile_first
+		width 100%                  /* [4] */
+	-webkit-box-sizing border-box   /* [5] */
+	-moz-box-sizing border-box      /* [5] */
+	box-sizing border-box           /* [5] */
+	if pull or push
+		position relative
 
 
-// Reversed
+// Allows multiple rows to be spaced (used for products for example)
+{class_type}{grid--multirow}
+	> {class_type}{grid__item}
+		padding-bottom gutter
+
 {class_type}{grid--rev}
-    direction rtl
-    text-align left
-    > {class_type}{grid__item}
-        direction ltr
-        text-align left
+	direction rtl
+	text-align left
+	> {class_type}{grid__item}
+		direction ltr
+		text-align left
 
 
 // Gutterless
 {class_type}{grid--full}
-    margin-left 0
+	margin-left 0
 
-    > {class_type}{grid__item}
-        padding-left 0
+	> {class_type}{grid__item}
+		padding-left 0
 
 
 // Right-aligned
 {class_type}{grid--right}
-    text-align right
-    > {class_type}{grid__item}
-        text-align left
+	text-align right
+	> {class_type}{grid__item}
+		text-align left
 
 
 // Centered
 {class_type}{grid--center}
-    text-align center
-    > {class_type}{grid__item}
-        text-align left
+	text-align center
+	> {class_type}{grid__item}
+		text-align left
 
 
 // Middle-aligned
 {class_type}{grid--middle}
 
-    > {class_type}{grid__item}
-        vertical-align middle
+	> {class_type}{grid__item}
+		vertical-align middle
 
 
 // Bottom-aligned
 {class_type}{grid--bottom}
-    > {class_type}{grid__item}
-        vertical-align bottom
+	> {class_type}{grid__item}
+		vertical-align bottom
 
 
 // Narrower gutters
 {class_type}{grid--narrow}
-    margin-left -(gutter/2)
-    > {class_type}{grid__item}
-        padding-left (gutter/2)
+	margin-left -(gutter/2)
+	> {class_type}{grid__item}
+		padding-left (gutter/2)
 
 
 // Wider gutters
 {class_type}{grid--wide}
-    margin-left: -(gutter*2)
-    > {class_type}{grid__item}
-        padding-left: (gutter*2)
+	margin-left: -(gutter*2)
+	> {class_type}{grid__item}
+		padding-left: (gutter*2)
 
 
 /*------------------------------------*\
@@ -343,26 +348,26 @@ if not use_markup_fix
 
 // Callig this mixin generates all the classes in a namespace.
 device_type(namespace = "")
-    create_size namespace, whole
-    create_size namespace, half, one
-    create_size namespace, third, one two
-    create_size namespace, quarter, one two three
-    create_size namespace, fifth, one two three four
-    create_size namespace, sixth, one two three four five
-    create_size namespace, eighth, one two three four five six seven
-    create_size namespace, tenth, one two three four five six seven eight nine
-    create_size namespace, twelfth, one two three four five six seven eight nine ten eleven
+	create_size namespace, whole
+	create_size namespace, half, one
+	create_size namespace, third, one two
+	create_size namespace, quarter, one two three
+	create_size namespace, fifth, one two three four
+	create_size namespace, sixth, one two three four five
+	create_size namespace, eighth, one two three four five six seven
+	create_size namespace, tenth, one two three four five six seven eight nine
+	create_size namespace, twelfth, one two three four five six seven eight nine ten eleven
 
 // Generate global classes.
 device_type()
 
 // Generate breakpoint-specific classes.
 if responsive
-    for breakpoint in breakpoints
-        name = unquote(breakpoint)
-        declaration = last(breakpoint)
+	for breakpoint in breakpoints
+		name = unquote(breakpoint)
+		declaration = last(breakpoint)
 
-        breakpoint-found = true
-        media = declaration
-        @media media
-            device_type(name + "-")
+		breakpoint-found = true
+		media = declaration
+		@media media
+			device_type(name + "-")
